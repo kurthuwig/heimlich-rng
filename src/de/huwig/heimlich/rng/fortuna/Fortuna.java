@@ -44,10 +44,18 @@ public class Fortuna {
         if (reseedAllowed()) {
             reseed();
         }
-        if (0 == reseedCount) {
+        if (!isSeeded()) {
             throw new IllegalArgumentException("not seeded");
         }
         fillBufferAndRekey(buffer);
+    }
+
+    private boolean isSeeded() {
+        return 0 != reseedCount;
+    }
+
+    public boolean isInitialized() {
+        return isSeeded() || reseedAllowed();
     }
 
     private void checkBuffersSize(byte[] buffer) {
@@ -113,14 +121,16 @@ public class Fortuna {
         }
     }
 
-    public void addRandomEvent(byte source, int poolNo, byte[] data) {
+    public void addRandomEvent(byte source,
+                               int poolNo,
+                               byte[] data, int offset, int length) {
         if (255 < data.length) {
             throw new IllegalArgumentException("data too long");
         }
 
         final Pool pool = pools[poolNo];
         synchronized (pool) {
-            pool.addEvent(source, data);
+            pool.addEvent(source, data, offset, length);
         }
     }
 }

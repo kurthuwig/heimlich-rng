@@ -19,13 +19,13 @@ public class Pool {
         }
     }
 
-    public void addEvent(byte source, byte[] data) {
+    public void addEvent(byte source, byte[] data, int offset, int dataLength) {
         prefix[0] = source;
         prefix[1] = (byte) data.length;
         sha256.update(prefix);
-        sha256.update(data);
+        sha256.update(data, offset, dataLength);
 
-        length += data.length + 2;
+        length += dataLength + 2;
     }
 
     public int getLength() {
