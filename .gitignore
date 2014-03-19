@@ -1,0 +1,13 @@
+/gen/
+/bin/
+/.be/id-cache
+/.idea/
+/proguard/
+/libs/
+/out/
+*~
+build-log.xml
+build.log
+build.xml
+local.properties
+project.properties
