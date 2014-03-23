@@ -133,4 +133,8 @@ public class Fortuna {
             pool.addEvent(source, data, offset, length);
         }
     }
+
+    public long getReseedCount() {
+        return reseedCount;
+    }
 }
